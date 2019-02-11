@@ -1,7 +1,7 @@
 Role Name
 =========
 
-informix-jdbc
+jdbc
 
 Requirements
 ------------
