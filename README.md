@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/SpokeyWheeler/jdbc.svg?branch=master)](https://travis-ci.com/SpokeyWheeler/jdbc)
+
 Role Name
 =========
 
