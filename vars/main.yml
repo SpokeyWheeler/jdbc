@@ -1,0 +1,8 @@
+---
+# vars file for informix-jdbc
+
+vendor: hcl
+jdbc_version: 4.10.FC12W1
+force_jdbc_install: false
+jdbc_version_previously_installed: false
+source_location_of_jdbc_media: "~"

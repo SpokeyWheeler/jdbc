@@ -1,0 +1,6 @@
+---
+# defaults file for informix-jdbc
+
+jdbc_base_path: "/opt/{{ vendor }}/informix/jdbc"
+jdbc_install_path: "{{ jdbc_base_path }}/{{ jdbc_version }}"
+jdbc_tmp_path: "{{ jdbc_base_path }}/tmp_install"

@@ -1,0 +1,49 @@
+---
+
+# these tasks are always done
+
+- name: set selinux permissive
+  selinux:
+    policy: targeted
+    state: permissive
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: install EPEL
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: install lvm2
+  yum:
+    name: lvm2
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: create informix group
+  group:
+    name: informix
+    state: present
+    system: false
+
+- name: create informix user
+  user:
+    home: /opt/informix
+    group: informix
+    name: informix
+    shell: /bin/bash
+    state: present
+    system: false
+
+- name: create jdbc target directory
+  file:
+    group: informix
+    owner: informix
+    path: "/opt/{{ vendor }}/informix/jdbc/{{ jdbc_version }}"
+    state: directory
+
+- name: create jdbc install source directory
+  file:
+    group: informix
+    owner: informix
+    path: "/opt/{{ vendor }}/informix/jdbc/tmp_install"
+    state: directory

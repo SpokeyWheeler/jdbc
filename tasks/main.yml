@@ -1,0 +1,101 @@
+---
+# tasks file for informix-jdbc
+
+- name: check if this version is already installed
+  stat:
+    path: "{{ jdbc_install_path }}/.install_complete"
+  register: st
+  ignore_errors: true
+
+- name: set already installed flag if necessary
+  set_fact:
+    jdbc_version_previously_installed: true
+  when: st.stat.exists is defined and st.stat.exists
+
+- name: check if force install flag is set
+  set_fact:
+    jdbc_version_installed_previously: false
+  when: force_jdbc_install == true
+
+- name: bail out if this version was previously installed and force install is not set
+  fail:
+    msg: "Aborting as JDBC version {{ jdbc_version }} was previously installed. Set force_jdbc_install to true in vars to force install"
+  when: jdbc_version_installed_previously
+
+- name: set selinux permissive
+  selinux:
+    policy: targeted
+    state: permissive
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: create informix group
+  group:
+    name: informix
+    state: present
+    system: false
+
+- name: create informix user
+  user:
+    home: /opt/informix
+    group: informix
+    name: informix
+    shell: /bin/bash
+    state: present
+    system: false
+
+- name: create jdbc target directory
+  file:
+    group: informix
+    owner: informix
+    path: "/opt/{{ vendor }}/informix/jdbc/{{ jdbc_version }}"
+    state: directory
+
+- name: create jdbc install source directory
+  file:
+    group: informix
+    owner: informix
+    path: "/opt/{{ vendor }}/informix/jdbc/tmp_install"
+    state: directory
+
+- name: create temp install directory
+  file:
+    group: informix
+    mode: 0400
+    owner: informix
+    path: "{{ jdbc_install_path }}/.install_complete"
+    state: directory
+
+- name: create target install directory
+  file:
+    group: informix
+    mode: 775
+    owner: informix
+    path: "{{ jdbc_install_path }}"
+    state: directory
+
+- name: copy install media from controller if path set
+  copy:
+    dest: "{{ jdbc_tmp_path }}"
+    group: informix
+    mode:
+    owner: informix
+    src: source_location_of_jdbc_media
+  when: source_location_of_jdbc_media is not match(".*://.*")
+
+- name: download install media if path set
+  get_url:
+  when: source_location_of_jdbc_media is match(".*://.*")
+
+- name: run installer
+
+- name: validate install
+
+- name: clean up
+
+- name: mark installation as complete
+  file:
+    group: informix
+    mode: 0775
+    owner: informix
+    path: "{{ jdbc_tmp_path }}"
+    state: touch
