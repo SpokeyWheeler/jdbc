@@ -11,7 +11,15 @@ You need Informix install media and licenses
 Role Variables
 --------------
 
-TBA
+Defaults:
+
+jdbc_base_path: Starting point for all product installs - multiple versions can be installed
+jdbc_install_path: Target path for install
+jdbc_tmp_path: Working directory - will be removed
+
+Vars:
+
+
 
 Dependencies
 ------------
