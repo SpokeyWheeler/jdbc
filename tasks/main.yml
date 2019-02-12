@@ -78,6 +78,7 @@
   command: java -jar setup.jar -i silent -DLICENSE=accepted -DUSER_INSTALL_DIR="{{ jdbc_install_path }}"
   args:
     chdir: "{{ jdbc_tmp_path }}"
+  when: not jdbc_version_previously_installed
 
 - name: validate install
   stat:
@@ -98,7 +99,6 @@
     src: "{{ jdbc_install_path }}"
     dest: "{{ jdbc_base_path }}/informixdir"
     state: link
-
 
 - name: clean up
   file:
