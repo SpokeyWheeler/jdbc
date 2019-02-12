@@ -20,11 +20,11 @@
 - name: check if force install flag is set
   set_fact:
     jdbc_version_previously_installed: false
-  when: force_jdbc_install == true
+  when: force_jdbc_install
 
 - name: bail out if this version was previously installed and force install is not set
   fail:
-    msg: "Aborting as JDBC version {{ jdbc_version }} was previously installed. Set force_jdbc_install to true in vars to force install"
+    msg: "Aborting as JDBC {{ jdbc_version }} was previously installed. Set force_jdbc_install true in vars to force"
   when: jdbc_version_previously_installed
 
 - name: set the install media file name if HCL
@@ -88,7 +88,7 @@
 - name: abort install failed
   fail:
     msg: "Install failed - ifxjdbc.jar does not exist or is zero bytes"
-  when: val.stat.exists != true or val.stat.size == 0
+  when: not val.stat.exists or val.stat.size == 0
 
 - name: make this the default version by linking "informixdir" to it
   file:
