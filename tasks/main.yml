@@ -1,6 +1,11 @@
 ---
 # tasks file for informix-jdbc
 
+- name: check whether the vendor is HCL
+  fail:
+    msg: "IBM does not package JDBC separately, this only works for an HCL distribution"
+  when: vendor != "hcl"
+
 - name: check if this version is already installed
   stat:
     path: "{{ jdbc_install_path }}/.install_complete"
