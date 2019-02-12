@@ -4,6 +4,7 @@ python: "2.7"
 dist: xenial
 
 notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
   slack:
     rooms:
     - zinaida:cS9FF04mRHHE6y1jGXXbpxRy#builds
@@ -24,5 +25,3 @@ install:
 script:
  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
 
-notifications:
-    webhooks: https://galaxy.ansible.com/api/v1/notifications/
