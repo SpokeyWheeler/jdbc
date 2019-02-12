@@ -33,11 +33,13 @@ None.
 Example Playbook
 ----------------
 
-TBA:
+I expect an inventory group for jdbc in the inventory file. This isn't really needed for this, but it will be needed when I eventually get around to integrating this into an all-encompassing cluster build.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- hosts: jdbc
+  become: true
+
+  roles:
+    - { role: jdbc }
 
 License
 -------

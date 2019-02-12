@@ -85,6 +85,16 @@
     msg: "Install failed - ifxjdbc.jar does not exist or is zero bytes"
   when: val.stat.exists != true or val.stat.size == 0
 
+- name: make this the default version by linking "informixdir" to it
+  file:
+    group: informix
+    mode: 0775
+    owner: informix
+    src: "{{ jdbc_install_path }}"
+    dest: "{{ jdbc_base_path }}/informixdir"
+    state: link
+
+
 - name: clean up
   file:
     group: informix
