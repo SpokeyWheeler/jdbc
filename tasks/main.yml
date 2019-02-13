@@ -36,6 +36,25 @@
   selinux:
     policy: targeted
     state: permissive
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: install python and Java on Debian platforms
+  apt:
+    name:
+    - python2.7
+    - openjdk-8-jdk
+  when: ansible_facts['os_family'] == "Debian"
+
+# - name: install Java on SuSE platforms
+  # zypper_repository:
+    # repo: https://download.opensuse.org/repositories/Java:Factory/SLE_15/Java:Factory.repo
+    # runrefresh: true
+  # when: ansible_facts['os_family'] == "Suse"
+
+- name: install Java on SuSE platforms
+  zypper:
+    name: java-1_8_0-openjdk
+  when: ansible_facts['os_family'] == "Suse"
 
 - name: create informix group
   group:
