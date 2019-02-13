@@ -52,10 +52,10 @@ galaxy_info:
       - 7
   - name: Ubuntu
     versions:
-      - xenial
+      - bionic
   - name: SLES
     versions:
-      - all
+      - 12
 
   galaxy_tags:
   - informix
