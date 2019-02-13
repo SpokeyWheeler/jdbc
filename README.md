@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/SpokeyWheeler/jdbc.svg?branch=master)](https://travis-ci.com/SpokeyWheeler/jdbc)
+[![Build Status](https://travis-ci.com/SpokeyWheeler/jdbc.svg?branch=master)](https://travis-ci.com/SpokeyWheeler/jdbc)[![CodeFactor](https://www.codefactor.io/repository/github/spokeywheeler/csdk/badge)](https://www.codefactor.io/repository/github/spokeywheeler/csdk)
 
 Role Name
 =========
@@ -23,9 +23,9 @@ Defaults:
 Vars:
 
 * vendor: hcl or ibm
-* jdbc_version: version number in full, e.g. 4.10.FC12W1 
+* jdbc_version: version number in full, e.g. 4.10.JC12W1 
 * force_jdbc_install: false or true
-* source_location_of_jdbc_media: Either a path like "/tmp/installs" or a URL like "https://artifactory.com/media/hcl/informix/jdbc/4.10.FC12W1"
+* source_location_of_jdbc_media: Either a path like "/tmp/installs" or a URL like "https://artifactory.com/media/hcl/informix/jdbc/4.10.JC12W1"
 
 Dependencies
 ------------
