@@ -25,7 +25,7 @@ Vars:
 *   vendor: hcl or ibm
 *   jdbc_version: version number in full, e.g. 4.10.JC12W1 
 *   force_jdbc_install: false or true
-*   source_location_of_jdbc_media: Either a path like "/tmp/installs" or a URL like "https://artifactory.com/media/hcl/informix/jdbc/4.10.JC12W1"
+*   source_location_of_jdbc_media: Either a path like "</tmp/installs>" or a URL like "<https://artifactory.com/media/hcl/informix/jdbc/4.10.JC12W1>"
 
 Dependencies
 ------------
