@@ -37,7 +37,7 @@ Example Playbook
 
 I expect an inventory group for jdbc in the inventory file. This isn't really needed for this, but it will be needed when I eventually get around to integrating this into an all-encompassing cluster build.
 
-```
+```yaml
 - hosts: jdbc
   become: true
 
@@ -53,4 +53,4 @@ MIT
 Author Information
 ------------------
 
-https://github.com/SpokeyWheeler
+<https://github.com/SpokeyWheeler>

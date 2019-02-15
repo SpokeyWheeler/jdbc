@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.*;
-import java.lang.Thread;
+
+package tests;
 
 public class TestConnect {
 
