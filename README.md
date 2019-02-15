@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/SpokeyWheeler/jdbc.svg?branch=master)](https://travis-ci.com/SpokeyWheeler/jdbc)[![CodeFactor](https://www.codefactor.io/repository/github/spokeywheeler/csdk/badge)](https://www.codefactor.io/repository/github/spokeywheeler/csdk)
+[![Build Status](https://travis-ci.com/SpokeyWheeler/jdbc.svg?branch=master)](https://travis-ci.com/SpokeyWheeler/jdbc)
+[![CodeFactor](https://www.codefactor.io/repository/github/spokeywheeler/csdk/badge)](https://www.codefactor.io/repository/github/spokeywheeler/jdbc)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/528c661837544724aa227c6b222d605a)](https://app.codacy.com/app/Zinaida/jdbc)
 
 Role Name

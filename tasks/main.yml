@@ -40,7 +40,7 @@
     - openjdk-8-jdk
   register: task_result
   until: task_result is success
-  retries: 150
+  retries: 10
   delay: 2
   when: ansible_facts['os_family'] == "Debian" and not jdbc_version_previously_installed
 
@@ -50,7 +50,7 @@
     - java-1_8_0-openjdk
   register: task_result
   until: task_result is success
-  retries: 150
+  retries: 10
   delay: 2
   when: ansible_facts['os_family'] == "Suse" and not jdbc_version_previously_installed
 
@@ -93,6 +93,10 @@
   unarchive:
     dest: "{{ jdbc_tmp_path }}"
     src: "{{ source_location_of_jdbc_media }}/{{ jdbc_install_media_name }}"
+  register: task_result
+  until: task_result is success
+  retries: 10
+  delay: 2
   when: not jdbc_version_previously_installed
 
 - name: run installer
