@@ -55,7 +55,7 @@ galaxy_info:
       - bionic
   - name: SLES
     versions:
-      - 12
+      - 15
 
   galaxy_tags:
   - informix
