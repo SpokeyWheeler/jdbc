@@ -22,21 +22,16 @@
     jdbc_version_previously_installed: false
   when: force_jdbc_install
 
-- name: bail out if this version was previously installed and force install is not set
-  fail:
-    msg: "Aborting as JDBC {{ jdbc_version }} was previously installed. Set force_jdbc_install true in vars to force"
-  when: jdbc_version_previously_installed
-
 - name: set the install media file name if HCL
   set_fact:
     jdbc_install_media_name: "hcl.jdbc.{{ jdbc_version }}.ALL.tar.gz"
-  when: vendor == "hcl"
+  when: vendor == "hcl" and not jdbc_version_previously_installed
 
 - name: set selinux permissive
   selinux:
     policy: targeted
     state: permissive
-  when: ansible_facts['os_family'] == "RedHat"
+  when: ansible_facts['os_family'] == "RedHat" and not jdbc_version_previously_installed
 
 - name: install python and Java on Debian platforms
   apt:
@@ -47,22 +42,24 @@
   until: task_result is success
   retries: 150
   delay: 2
-  when: ansible_facts['os_family'] == "Debian"
+  when: ansible_facts['os_family'] == "Debian" and not jdbc_version_previously_installed
 
 - name: install Java on SuSE platforms
   zypper:
-    name: java-1_8_0-openjdk
+    name:
+    - java-1_8_0-openjdk
   register: task_result
   until: task_result is success
   retries: 150
   delay: 2
-  when: ansible_facts['os_family'] == "Suse"
+  when: ansible_facts['os_family'] == "Suse" and not jdbc_version_previously_installed
 
 - name: create informix group
   group:
     name: informix
     state: present
     system: false
+  when: not jdbc_version_previously_installed
 
 - name: create informix user
   user:
@@ -72,6 +69,7 @@
     shell: /bin/bash
     state: present
     system: false
+  when: not jdbc_version_previously_installed
 
 - name: create target install directory
   file:
@@ -80,6 +78,7 @@
     owner: informix
     path: "{{ jdbc_install_path }}"
     state: directory
+  when: not jdbc_version_previously_installed
 
 - name: create temp install directory
   file:
@@ -88,11 +87,13 @@
     owner: informix
     path: "{{ jdbc_tmp_path }}"
     state: directory
+  when: not jdbc_version_previously_installed
 
 - name: upload / download and extract JDBC installer
   unarchive:
     dest: "{{ jdbc_tmp_path }}"
     src: "{{ source_location_of_jdbc_media }}/{{ jdbc_install_media_name }}"
+  when: not jdbc_version_previously_installed
 
 - name: run installer
   become: true
@@ -120,6 +121,7 @@
     src: "{{ jdbc_install_path }}"
     dest: "{{ jdbc_base_path }}/informixdir"
     state: link
+  when: not jdbc_version_previously_installed
 
 - name: clean up
   file:
@@ -128,6 +130,7 @@
     owner: informix
     path: "{{ jdbc_tmp_path }}"
     state: absent
+  when: not jdbc_version_previously_installed
 
 - name: mark installation as complete
   file:
@@ -136,3 +139,4 @@
     owner: informix
     path: "{{ jdbc_install_path }}/.install_complete"
     state: touch
+  when: not jdbc_version_previously_installed
