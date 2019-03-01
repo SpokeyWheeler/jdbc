@@ -1,11 +1,5 @@
 ---
 # tasks file for informix-jdbc
-
-- name: check whether the vendor is HCL
-  fail:
-    msg: "IBM does not package JDBC separately, this only works for an HCL distribution"
-  when: vendor != "hcl"
-
 - name: check if this version is already installed
   stat:
     path: "{{ jdbc_install_path }}/.install_complete"
@@ -26,6 +20,11 @@
   set_fact:
     jdbc_install_media_name: "hcl.jdbc.{{ jdbc_version }}.ALL.tar.gz"
   when: vendor == "hcl" and not jdbc_version_previously_installed
+
+- name: set the install media file name if 2IBM
+  set_fact:
+    jdbc_install_media_name: "JDBC.{{ jdbc_version }}.tar"
+  when: vendor == "ibm" and not jdbc_version_previously_installed
 
 - name: set selinux permissive
   selinux:
